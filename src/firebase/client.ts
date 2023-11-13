@@ -3,6 +3,8 @@ import config from '../../firebase-config.json';
 
 import { getAuth } from 'firebase/auth';
 
+// firebase サービスの api キーをシークレットとして扱う必要はない
+// 参照: https://firebase.google.com/support/guides/security-checklist?hl=ja#api-keys-not-secret
 if (!getApps()?.length) {
   initializeApp(config);
 }

@@ -1,5 +1,6 @@
 import { API_ENDPOINT } from '@/app/constants';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+
 const fetchApi = <RequestType, ResponseType>(
   token: string,
   method: 'GET' | 'POST' | 'PATCH',

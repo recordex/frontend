@@ -1,5 +1,5 @@
-// const MOCK_API_ENDPOINT = 'https://mock-backend-twmyiymqla-an.a.run.app';
-// const STG_API_ENDPOINT = 'https://jphacks-backend-stg-twmyiymqla-an.a.run.app';
-const PRD_API_ENDPOINT = 'https://jphacks-backend-prd-twmyiymqla-an.a.run.app';
+const MOCK_API_ENDPOINT = 'https://mock.api.recordex.keisu.ke';
+export const API_ENDPOINT = MOCK_API_ENDPOINT;
 
-export const API_ENDPOINT = PRD_API_ENDPOINT;
+// const PRD_API_ENDPOINT = 'https://api.recordex.keisu.ke';
+// export const API_ENDPOINT = PRD_API_ENDPOINT;

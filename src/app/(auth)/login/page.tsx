@@ -104,14 +104,14 @@ const LoginPage = () => {
           <Box sx={{ pt: 8 }}>
             <Stack direction='column' spacing={2} justifyContent='center'>
               <Typography variant='h1' align='center' sx={{ fontSize: '3rem' }}>
-                SAFA
+                Recordex
               </Typography>
               <Typography variant='h2' align='center'>
-                ビジネスダッシュボード
+                Record History
               </Typography>
               <Box sx={{ textAlign: 'center' }}>
                 <Image
-                  src='/safa_logo_filled.png'
+                  src='/recordex_logo.png'
                   alt='logo'
                   width={200}
                   height={200}

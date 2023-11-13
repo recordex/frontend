@@ -29,10 +29,10 @@ const AppBar = () => {
       >
         <div>
           <Typography variant='h1' color='secondary'>
-            SAFA
+            Recordex
           </Typography>
           <Typography variant='h3' color='secondary'>
-            Business Dashboard
+            Record History
           </Typography>
         </div>
         <Paper

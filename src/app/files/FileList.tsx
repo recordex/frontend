@@ -19,7 +19,7 @@ import {
 import EventStatusChop from './_components/EventStatusChip';
 import Link from 'next/link';
 import AddIcon from '@mui/icons-material/Add';
-import {GOOGLE_CLOUD_STORAGE_ENDPOINT} from "@/app/constants";
+import { GOOGLE_CLOUD_STORAGE_ENDPOINT } from '@/app/constants';
 
 type FileListProps = {
   files: SafaEvent[] | undefined;

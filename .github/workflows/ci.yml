@@ -5,15 +5,18 @@ on: pull_request
 jobs:
   code-style-check:
     runs-on: ubuntu-latest
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+      # 参考: https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#use-private-packages
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@recordex'
       - name: Install dependencies
         run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run npm run fix
         run: npm run fix
       - name: Check for changes

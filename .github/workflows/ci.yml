@@ -6,8 +6,7 @@ jobs:
   code-style-check:
     runs-on: ubuntu-latest
     env:
-      INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
-      SEPOLIA_PRIVATE_KEY: ${{ secrets.SEPOLIA_PRIVATE_KEY }}
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

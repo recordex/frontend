@@ -3,9 +3,9 @@
 import { Box, Stack } from '@mui/material';
 import AppBar from './_components/AppBar';
 import LoggedInOnly from './_components/LoggedInOnly';
-import useEvents from './events/_hooks/useEvents';
-import EventList from './events/EventList';
-import TodoList from './_components/TodoList';
+import useEvents from './files/_hooks/useEvents';
+import FileList from './files/FileList';
+import RecentlyRecordedFIleList from './_components/RecentlyRecordedFIleList';
 import InfoCard from './_components/Analytics';
 
 const HomePage = () => {
@@ -17,15 +17,14 @@ const HomePage = () => {
         <AppBar></AppBar>
         <Box sx={{ px: 8 }}>
           <Stack direction='row' spacing={4} sx={{ mb: 4 }}>
-            <TodoList />
+            <RecentlyRecordedFIleList />
             <InfoCard
               title='アナリティクス'
-              totalAmount={34}
-              daysAmount={42}
-              price={51000}
+              totalFileCount={34}
+              totalVersionCount={1000}
             />
           </Stack>
-          <EventList events={events} error={error} isLoading={isLoading} />
+          <FileList files={events} error={error} isLoading={isLoading} />
         </Box>
       </LoggedInOnly>
     </div>

@@ -1,4 +1,4 @@
-import FileUploadButton from '@/app/_components/FileUpload';
+import ImageUploadButton from '@/app/_components/ImageUpload';
 import {
   Alert,
   Box,
@@ -62,13 +62,11 @@ const CreateProfileView = ({ createProfile }: Props) => {
               setProfile({ ...profile, displayName: e.target.value })
             }
           />
-
-          <FileUploadButton
+          <ImageUploadButton
             label='アイコンをアップロード'
             file={profile.iconFile}
             setFile={(file) => setProfile({ ...profile, iconFile: file })}
           />
-
           {apiError && <Alert severity='error'>{apiError}</Alert>}
 
           <Button

@@ -3,12 +3,13 @@ import { appColors } from '@/themes/main';
 import { Box, Typography, Chip } from '@mui/material';
 
 type ListItemProps = {
-  title: string;
-  subtitle: string;
-  days: string;
+  name: string;
+  timestamp: Date;
 };
 
-const ListItem = ({ title, subtitle, days }: ListItemProps) => {
+const FileMetadata = ({ name, timestamp }: ListItemProps) => {
+  const date = `${timestamp.getFullYear()}年${timestamp.getMonth()}月${timestamp.getDate()}日`;
+
   return (
     <Box
       sx={{
@@ -24,15 +25,12 @@ const ListItem = ({ title, subtitle, days }: ListItemProps) => {
     >
       <Box>
         <Typography variant='body1' gutterBottom>
-          {title}
-        </Typography>
-        <Typography variant='body2' color='textSecondary'>
-          {subtitle}
+          {name}
         </Typography>
       </Box>
-      <Chip label={days} />
+      <Chip label={date} />
     </Box>
   );
 };
 
-export default ListItem;
+export default FileMetadata;

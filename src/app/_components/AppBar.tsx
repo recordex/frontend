@@ -1,5 +1,6 @@
 import { Avatar, Box, Menu, MenuItem, Paper, Typography } from '@mui/material';
 import useUser from '../_hooks/useUser';
+import Link from 'next/link';
 import { useState } from 'react';
 
 const AppBar = () => {
@@ -28,12 +29,14 @@ const AppBar = () => {
         }}
       >
         <div>
-          <Typography variant='h1' color='secondary'>
-            Recordex
-          </Typography>
-          <Typography variant='h3' color='secondary'>
-            Record History
-          </Typography>
+          <Link href='/' style={{ textDecorationLine: 'none' }}>
+            <Typography variant='h1' color='secondary'>
+              Recordex
+            </Typography>
+            <Typography variant='h3' color='secondary'>
+              Record History
+            </Typography>
+          </Link>
         </div>
         <Paper
           sx={{

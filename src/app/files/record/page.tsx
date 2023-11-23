@@ -1,18 +1,18 @@
 'use client';
 
-import CreateEventInput from './_components/CreateEventInput';
 import AppBar from '@/app/_components/AppBar';
 import { Container } from '@mui/system';
+import RecordFileInput from '@/app/_components/RecordFileInput';
 
-const EventCreatePage = () => {
+const RecordPage = () => {
   return (
     <div>
       <AppBar />
       <Container maxWidth='lg'>
-        <CreateEventInput />
+        <RecordFileInput />
       </Container>
     </div>
   );
 };
 
-export default EventCreatePage;
+export default RecordPage;

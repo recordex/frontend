@@ -11,7 +11,7 @@ import FileUploadButton from '@/app/_components/FileUpload';
 import { useState } from 'react';
 import useUser from '@/app/_hooks/useUser';
 import { useRouter } from 'next/navigation';
-import { createRecord } from '@/app/record/_hooks/createRecord';
+import { createRecord } from '@/app/files/record/_hooks/createRecord';
 
 const RecordFileInput = () => {
   const [isLoading, setIsLoading] = useState(false);

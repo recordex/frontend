@@ -1,4 +1,4 @@
-import { formatDate, formatDurationDate } from '@/lib/formatDate';
+import { formatDate } from '@/lib/formatDate';
 import {
   Alert,
   AlertTitle,
@@ -14,74 +14,47 @@ import {
   GridColDef,
   GridRenderCellParams,
   GridRowParams,
-  GridTreeNodeWithRender,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
 import EventStatusChop from './_components/EventStatusChip';
-import ApplicationProgress from './_components/ApplicationProgress';
 import Link from 'next/link';
 import AddIcon from '@mui/icons-material/Add';
-import { useRouter } from 'next/navigation';
+import {GOOGLE_CLOUD_STORAGE_ENDPOINT} from "@/app/constants";
 
-type EventListProps = {
-  events: SafaEvent[] | undefined;
+type FileListProps = {
+  files: SafaEvent[] | undefined;
   error: Error | undefined;
   isLoading: boolean;
 };
 
-const EventList = ({ events, error, isLoading }: EventListProps) => {
-  const router = useRouter();
+const FileList = ({ files, error, isLoading }: FileListProps) => {
   const handleRowClick = (params: GridRowParams) => {
-    router.push(`/events/${params.id}`);
+    // 外部 URL に対しては router.push より window.location の方が適している
+    // 参照: https://nextjs-ja-translation-docs.vercel.app/docs/api-reference/next/router
+    // 参照: https://developer.mozilla.org/ja/docs/Web/API/Window/location
+    window.location.assign(`${GOOGLE_CLOUD_STORAGE_ENDPOINT}/${params.id}`);
   };
 
   const columns: GridColDef[] = [
+    // ethereum のトランザクションステータス
+    // ガス不足やスマートコントラクトのエラー、署名が無効等の不正なトランザクションのときは failed になる
     {
-      field: 'status',
-      headerName: 'ステータス',
-      width: 120,
+      field: 'fileName',
+      headerName: 'ファイル名',
+      width: 350,
       renderCell: (params: GridRenderCellParams) => (
         <EventStatusChop
-          label={params.row.status.label}
-          color={params.row.status.color}
+          label={params.row.fileName.label}
+          color={params.row.fileName.color}
         />
       ),
     },
-    { field: 'title', headerName: 'イベント名', width: 350 },
     {
-      field: 'applicationDeadline',
-      headerName: '申込締切日時',
+      field: 'recordedAt',
+      headerName: '記録日時',
       width: 180,
       valueGetter: (params: GridValueGetterParams) =>
-        formatDate(params.row.applicationDeadline),
-    },
-    {
-      field: 'willStartAt',
-      headerName: '開催日時',
-      width: 240,
-      valueGetter: (params: GridValueGetterParams) =>
-        formatDurationDate(params.row.willStartAt, params.row.willCompleteAt),
-    },
-    {
-      field: 'applicationCount',
-      headerName: '申込状況',
-      width: 120,
-      renderCell: (
-        params: GridRenderCellParams<
-          SafaEvent,
-          undefined,
-          undefined,
-          GridTreeNodeWithRender
-        >,
-      ) => {
-        return (
-          <ApplicationProgress
-            participantCount={params.row.participants.length}
-            maxParticipantCount={params.row.participantCount}
-            highlight={params.row.status.label === '募集中'}
-          />
-        );
-      },
+        formatDate(params.row.recordedAt),
     },
   ];
 
@@ -95,11 +68,11 @@ const EventList = ({ events, error, isLoading }: EventListProps) => {
       <Box sx={{ p: 4 }}>
         <Stack direction='row' justifyContent='space-between'>
           <Typography variant='h2' sx={{ mb: 4 }}>
-            イベント一覧
+            ファイル一覧
           </Typography>
-          <Link href='/events/create'>
+          <Link href='/files/record'>
             <Button variant='contained' startIcon={<AddIcon />}>
-              イベントを作成する
+              記録を作成する
             </Button>
           </Link>
         </Stack>
@@ -110,7 +83,7 @@ const EventList = ({ events, error, isLoading }: EventListProps) => {
           </Alert>
         )}
         <DataGrid
-          rows={events || []}
+          rows={files || []}
           columns={columns}
           onRowClick={handleRowClick}
           sx={{
@@ -134,4 +107,4 @@ const EventList = ({ events, error, isLoading }: EventListProps) => {
   );
 };
 
-export default EventList;
+export default FileList;

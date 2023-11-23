@@ -9,3 +9,5 @@
 
 const PRD_API_ENDPOINT = 'https://api.recordex.keisu.ke';
 export const API_ENDPOINT = PRD_API_ENDPOINT;
+
+export const GOOGLE_CLOUD_STORAGE_ENDPOINT = 'https://storage.googleapis.com/recordex';

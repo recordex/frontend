@@ -37,8 +37,8 @@ const useUser = () => {
       if (newToken && newToken !== token) {
         setToken(newToken);
       }
-      const user = await getUser(token);
-      setUser(user);
+      // const user = await getUser(token);
+      // setUser(user);
     })();
   }, [token, setUser, setToken]);
 

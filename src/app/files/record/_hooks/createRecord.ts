@@ -29,7 +29,17 @@ export const createRecord = async (
     signer,
   );
   const recordContract = recordFactory.connect(signer);
-  const addFile = await recordContract.addFile(file.name, fileHash);
+  // ブロックチェーンに記録されている最新のファイルハッシュ値を取得
+  const fileMetaDataHistory =
+    await recordContract.getFileMetadataHistory(fileHash);
+  const newestFileHash =
+    fileMetaDataHistory[fileMetaDataHistory.length - 1].hash;
+  // ブロックチェーンにファイルのハッシュ値を記録
+  const addFile = await recordContract.addFile(
+    file.name,
+    fileHash,
+    newestFileHash,
+  );
   console.log(
     `トランザクションの送信に成功しました。network -> ${signer.provider._network.name}, transactionHash -> ${addFile.hash})`,
   );

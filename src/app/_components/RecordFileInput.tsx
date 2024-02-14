@@ -74,6 +74,7 @@ const RecordFileInput = () => {
             onClick={onRecordClick}
             disabled={!blob}
           >
+            {/*TODO ここを差分を表示する。にする*/}
             記録する
           </Button>
         </Stack>

@@ -25,20 +25,33 @@ export const createRecord = async (
   const signer = await provider.getSigner();
 
   const recordFactory = Record__factory.connect(
-    '0xC3e4bb03b22C7DcB3715A2f973f25Ba72d9A2e37',
+    '0x590b51f9D972625B263eAD11417832Fcf4fc724c',
     signer,
   );
   const recordContract = recordFactory.connect(signer);
-  // ブロックチェーンに記録されている最新のファイルハッシュ値を取得
-  const fileMetaDataHistory =
-    await recordContract.getFileMetadataHistory(fileHash);
-  const newestFileHash =
-    fileMetaDataHistory[fileMetaDataHistory.length - 1].hash;
+  let recordedNewestFileHash: string;
+  try {
+    // ブロックチェーンに記録されている最新のファイルハッシュ値を取得
+    const fileMetaDataHistory = await recordContract.getFileMetadataHistory(
+      file.name,
+    );
+    if (fileMetaDataHistory.length === 0) {
+      recordedNewestFileHash = fileHash;
+    } else {
+      recordedNewestFileHash = fileMetaDataHistory[0].hash;
+    }
+  } catch (e) {
+    return Promise.reject(
+      new Error(
+        `recordContract.getFileMetadataHistory 関数を実行中にエラーが発生しました。: ${e}`,
+      ),
+    );
+  }
   // ブロックチェーンにファイルのハッシュ値を記録
   const addFile = await recordContract.addFile(
     file.name,
     fileHash,
-    newestFileHash,
+    recordedNewestFileHash,
   );
   console.log(
     `トランザクションの送信に成功しました。network -> ${signer.provider._network.name}, transactionHash -> ${addFile.hash})`,

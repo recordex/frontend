@@ -13,6 +13,11 @@ interface PDFViewerProps {
   file: string;
 }
 
+const options = {
+  cMapUrl: '/cmaps/',
+  cMapPacked: true,
+};
+
 const PDFViewer: React.FC<PDFViewerProps> = ({ file }) => {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1); // 現在のページ番号
@@ -37,32 +42,30 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ file }) => {
 
   return (
     <>
+      <Button
+        onClick={previousPage}
+        disabled={pageNumber <= 1}
+        variant='outlined'
+        sx={{ mr: 4 }}
+      >
+        前のページ
+      </Button>
+      ページ {pageNumber} / {numPages}
+      <Button
+        onClick={nextPage}
+        disabled={pageNumber >= (numPages ?? 0)}
+        variant='outlined'
+        sx={{ ml: 4 }}
+      >
+        次のページ
+      </Button>
       <Document
         file={file}
         onLoadSuccess={onDocumentLoadSuccess}
-        options={{ cMapUrl: '/cmaps/', cMapPacked: true }}
+        options={options}
       >
         <Page pageNumber={pageNumber} />
       </Document>
-      <div>
-        <Button
-          onClick={previousPage}
-          disabled={pageNumber <= 1}
-          variant='outlined'
-          sx={{ mr: 4 }}
-        >
-          前のページ
-        </Button>
-        ページ {pageNumber} / {numPages}
-        <Button
-          onClick={nextPage}
-          disabled={pageNumber >= (numPages ?? 0)}
-          variant='outlined'
-          sx={{ ml: 4 }}
-        >
-          次のページ
-        </Button>
-      </div>
     </>
   );
 };

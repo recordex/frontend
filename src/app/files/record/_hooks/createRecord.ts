@@ -47,15 +47,24 @@ export const createRecord = async (
       ),
     );
   }
-  // ブロックチェーンにファイルのハッシュ値を記録
-  const addFile = await recordContract.addFile(
-    file.name,
-    fileHash,
-    recordedNewestFileHash,
-  );
-  console.log(
-    `トランザクションの送信に成功しました。network -> ${signer.provider._network.name}, transactionHash -> ${addFile.hash})`,
-  );
+  let addFile: ethers.ContractTransactionResponse;
+  try {
+    // ブロックチェーンにファイルのハッシュ値を記録
+    addFile = await recordContract.addFile(
+      file.name,
+      fileHash,
+      recordedNewestFileHash,
+    );
+    console.log(
+      `recordContract へのトランザクションの送信に成功しました。network -> ${signer.provider._network.name}, transactionHash -> ${addFile.hash})`,
+    );
+  } catch (e) {
+    return Promise.reject(
+      new Error(
+        `recordContract.addFile 関数を実行中にエラーが発生しました。: ${e}`,
+      ),
+    );
+  }
   const formData = new FormData();
   // ファイルとトランザクションハッシュを FormData に追加
   formData.append('file', file);
@@ -71,7 +80,7 @@ export const createRecord = async (
 
 type PostRecordRequest = FormData;
 
-type PostRecordResponse = {
+export type PostRecordResponse = {
   file_name: string;
   transaction_hash: string;
 };
